@@ -1,14 +1,22 @@
 generator client {
-    provider = "prisma-client-js"
+  provider = "prisma-client-js"
 }
 
 datasource db {
-    provider = "mysql"
-    url = env("DATABASE_URL")
+  provider = "mysql"
+  url      = env("DATABASE_URL")
 }
 
 model Student {
-    id Int @id @default(autoincrement())
-    name String
-    student_class Int
+  id            Int       @id @default(autoincrement())
+  name          String
+  student_class Int
+  Parents       Parents[]
+}
+
+model Parents {
+  id           Student @relation(fields: [parent_id], references: [id])
+  parent_id    Int
+  parent_name  String
+  parent_phone Int     @unique
 }
