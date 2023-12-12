@@ -8,9 +8,9 @@ const prisma = new PrismaClient()
 application.use(express.json())
 
 // get all student details
-application.get('/', async (request, response) => {
+application.get('/get-student-details', async (request, response) => {
     const allStudentDetails = await prisma.student.findMany()
-    // response.send("Getting all Student Details")
+    console.log("Get student details");
     response.json(allStudentDetails)
 })
 
@@ -37,6 +37,20 @@ application.put('/get-student-name/:id', async (request, response) => {
     } catch (error) {
         console.log(error);
     }
+})
+
+// get all parent details
+application.get('/get-parent-details', async (request, response) => {
+    const allParentsDetails = await prisma.parents.findMany()
+    console.log("Get parent details");
+    response.json(allParentsDetails)
+})
+
+// create a new parent
+application.post('/create-parent', async (request, response) => {
+    const createNewParent = await prisma.parents.create({ data: request.body })
+    console.log(request.body);
+    response.send("New parent created")
 })
 
 const port = 6000
