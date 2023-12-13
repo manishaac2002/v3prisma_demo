@@ -1,4 +1,13 @@
 -- CreateTable
+CREATE TABLE `Student` (
+    `id` INTEGER NOT NULL AUTO_INCREMENT,
+    `name` VARCHAR(191) NOT NULL,
+    `student_class` INTEGER NOT NULL,
+
+    PRIMARY KEY (`id`)
+) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+
+-- CreateTable
 CREATE TABLE `Parents` (
     `parent_id` INTEGER NOT NULL,
     `parent_name` VARCHAR(191) NOT NULL,

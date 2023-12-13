@@ -14,11 +14,23 @@ application.get('/get-student-details', async (request, response) => {
     response.json(allStudentDetails)
 })
 
+// get all parent details
+application.get('/get-parent-details', async (request, response) => {
+    const allParentDetails = await prisma.parents.findMany()
+    console.log("parents here...");
+    response.json(allParentDetails)
+})
+
 // create a new student
 application.post('/create-student', async (request, response) => {
     const createNewStudent = await prisma.student.create({ data: request.body })
     console.log(request.body);
     response.send("New Student created")
+})
+application.post('/create-parents', async (request, response) => {
+    const createNewParents = await prisma.parents.create({ data: request.body })
+    console.log(request.body);
+    response.send("New parents created")
 })
 
 // Get a student name
@@ -39,18 +51,25 @@ application.put('/get-student-name/:id', async (request, response) => {
     }
 })
 
-// get all parent details
-application.get('/get-parent-details', async (request, response) => {
-    const allParentsDetails = await prisma.parents.findMany()
-    console.log("Get parent details");
-    response.json(allParentsDetails)
-})
-
-// create a new parent
-application.post('/create-parent', async (request, response) => {
-    const createNewParent = await prisma.parents.create({ data: request.body })
-    console.log(request.body);
-    response.send("New parent created")
+application.put('/get-student-name-with-parent-id/:parent_id', async (request, response) => {
+    try {
+        const parent_id = request.params.parent_id
+        const studentNameWithParentId = await prisma.parents.findFirst({
+            where:{
+                parent_id:parseInt(parent_id)
+            },
+            include: {
+                student: {
+                    select: {
+                        name: true
+                    }
+                }
+            }
+        })
+        response.send(studentNameWithParentId)
+    } catch (error) {
+        console.log(error);
+    }
 })
 
 const port = 6000
