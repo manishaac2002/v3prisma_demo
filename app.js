@@ -27,6 +27,7 @@ application.post('/create-student', async (request, response) => {
     console.log(request.body);
     response.send("New Student created")
 })
+//create new parent
 application.post('/create-parents', async (request, response) => {
     const createNewParents = await prisma.parents.create({ data: request.body })
     console.log(request.body);
@@ -71,6 +72,25 @@ application.put('/get-student-name-with-parent-id/:parent_id', async (request, r
         console.log(error);
     }
 })
+
+//create a new student with parent(inserting data)
+application.post('/insert-student-parent', async(request,response)=>{
+    const insertStudentParentData = await prisma.student.create({
+        data:{
+        name:"Vinu",
+        student_class:3,
+        parents:{
+            create:{
+                parent_name:"Mithra",
+                parent_phone:8
+            }
+        }
+    }
+})
+response.send(insertStudentParentData)
+})
+
+
 
 const port = 6000
 application.listen(port, () => {
