@@ -12,6 +12,7 @@ model Student {
   name          String
   student_class Int
   parents       Parents[]
+  school        School[]
 }
 
 model Parents {
@@ -19,4 +20,10 @@ model Parents {
   parent_id    Int
   parent_name  String
   parent_phone Int     @unique
+}
+
+model School {
+  id             Student @relation(fields: [school_id], references: [id])
+  school_id      Int
+  school_address String  @unique
 }
