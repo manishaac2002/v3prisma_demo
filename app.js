@@ -21,6 +21,13 @@ application.get('/get-parent-details', async (request, response) => {
     response.json(allParentDetails)
 })
 
+// get all school details
+application.get('/get-school-details', async (request, response) => {
+    const allSchoolDetails = await prisma.school.findMany()
+    console.log("schools here...");
+    response.json(allSchoolDetails)
+})
+
 // create a new student
 application.post('/create-student', async (request, response) => {
     const createNewStudent = await prisma.student.create({ data: request.body })
@@ -32,6 +39,11 @@ application.post('/create-parents', async (request, response) => {
     const createNewParents = await prisma.parents.create({ data: request.body })
     console.log(request.body);
     response.send("New parents created")
+})
+application.post('/create-school', async (request, response) => {
+    const createNewSchool = await prisma.school.create({ data: request.body })
+    console.log(request.body);
+    response.send("New school created")
 })
 
 // Get a student name
