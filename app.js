@@ -37,13 +37,15 @@ application.post('/create-student', async (request, response) => {
 //create new parent
 application.post('/create-parents', async (request, response) => {
     const createNewParents = await prisma.parents.create({ data: request.body })
-    console.log(request.body);
-    response.send("New parents created")
+    console.log("New parents created");
+    response.send(createNewParents)
 })
+
+// create new school
 application.post('/create-school', async (request, response) => {
     const createNewSchool = await prisma.school.create({ data: request.body })
-    console.log(request.body);
-    response.send("New school created")
+    console.log("New school created");
+    response.send(createNewSchool)
 })
 
 // Get a student name
