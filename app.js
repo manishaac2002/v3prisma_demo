@@ -95,7 +95,7 @@ application.put('/get-student-name-with-parent-id/:parent_id', async (request, r
 application.put('/get-parent-name-school-address/:id', async (request, response) => {
     try {
         const id = request.params.id
-        const studentIdWithParentNameSchoolAddress = await prisma.student.findFirst({
+        const studentIdWithParentNameSchoolAddress = await prisma.student.findUnique({
             where: {
                 id: parseInt(id)
             },
@@ -105,11 +105,16 @@ application.put('/get-parent-name-school-address/:id', async (request, response)
                         parent_name: true
                     }
                 },
+                student:{
+                    select:{
+                        id:true
+                    }
+                },
                 school: {
                     select: {
                         school_address: true
                     }
-                }
+                },
             }
         })
         response.send(studentIdWithParentNameSchoolAddress)
@@ -117,8 +122,6 @@ application.put('/get-parent-name-school-address/:id', async (request, response)
         console.log(error);
     }
 })
-
-
 
 //create a new student with parent(inserting data)
 application.post('/insert-student-parent', async (request, response) => {
