@@ -99,22 +99,21 @@ application.put('/get-parent-name-school-address/:id', async (request, response)
             where: {
                 id: parseInt(id)
             },
-            include: {
+            // table 1
+            select:{
+                id:true,
+                // table 2
                 parents: {
                     select: {
                         parent_name: true
                     }
                 },
-                student:{
-                    select:{
-                        id:true
-                    }
-                },
+                // table 3
                 school: {
                     select: {
                         school_address: true
                     }
-                },
+                }
             }
         })
         response.send(studentIdWithParentNameSchoolAddress)

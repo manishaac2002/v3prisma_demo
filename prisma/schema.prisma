@@ -17,7 +17,7 @@ model Parents {
   id           Student @relation(fields: [parent_id], references: [id])
   parent_id    Int
   parent_name  String
-  parent_phone Int     @unique
+  parent_phone Int     @unique 
 }
 
 model School {
