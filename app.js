@@ -139,7 +139,6 @@ application.post('/insert-student-parent', async (request, response) => {
     response.send(insertStudentParentData)
 })
 
-
 const port = 6000
 application.listen(port, () => {
     console.log(`Server is running on port ${port}`);
